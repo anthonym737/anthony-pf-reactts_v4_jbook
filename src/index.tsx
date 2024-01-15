@@ -38,6 +38,13 @@ const App = () => {
         // console.log(result);
         // setCode(result.code);
         setCode(result.outputFiles[0].text);
+
+        try {
+            eval(result.outputFiles[0].text);
+
+        } catch(err) {
+            alert(err);
+        }
     };
 
     return (<div>
@@ -55,8 +62,13 @@ const App = () => {
             </button>
         </div>
         <pre>{code}</pre>
-    </div>)
+        <iframe sandbox="" srcDoc={html}/>
+    </div>);
 };
+
+const html = `
+    <h1>local HTML doc</h1>
+`;
 
 ReactDOM.render(
     <App />,
