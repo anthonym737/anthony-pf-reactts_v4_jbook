@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
+import CodeEditor from './components/code-editor';
 
 const App = () => {
     const ref = useRef<any>();
@@ -63,27 +64,30 @@ const App = () => {
         </html>
     `;
 
-    return (<div>
-        <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-        >
-
-        </textarea>
+    return (
         <div>
-            <button
-                onClick={onClick}
-            >
-                Submit
-            </button>
+            <CodeEditor initialValue="const a = 1;"/>
+            <textarea
+                value={input}
+                onChange={(e) => 
+                    setInput(e.target.value) 
+                }
+            ></textarea>
+            <div>
+                <button
+                    onClick={onClick}
+                >
+                    Submit
+                </button>
+            </div>
+            <iframe 
+                title="preview" 
+                ref={iframe} 
+                sandbox="allow-scripts" 
+                srcDoc={html}
+            />
         </div>
-        <iframe 
-            title="preview" 
-            ref={iframe} 
-            sandbox="allow-scripts" 
-            srcDoc={html}
-        />
-    </div>);
+    );
 };
 
 ReactDOM.render(
